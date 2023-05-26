@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-hot-toast';
+
 axios.defaults.baseURL = 'https://646f943e09ff19b1208781fe.mockapi.io';
 
 export const fetchContacts = createAsyncThunk(
@@ -10,7 +11,9 @@ export const fetchContacts = createAsyncThunk(
       const { data } = await axios.get('/contacts');
       return data;
     } catch (err) {
-      toast.error(`Error happend on the server while loading contacts: (${err.message})`);
+      toast.error(
+        `Error happend on the server while loading contacts: (${err.message})`
+      );
       return rejectWithValue(err.code);
     }
   }
