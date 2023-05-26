@@ -10,7 +10,7 @@ export const fetchContacts = createAsyncThunk(
       const { data } = await axios.get('/contacts');
       return data;
     } catch (err) {
-      toast.error(`Error on the server happend: (${err.message})`);
+      toast.error(`Error happend on the server while loading contacts: (${err.message})`);
       return rejectWithValue(err.code);
     }
   }
@@ -23,7 +23,9 @@ export const addContact = createAsyncThunk(
       const { data } = await axios.post('/contacts', contact);
       return data;
     } catch (err) {
-      toast.error(`Error on the server happend: (${err.message})`);
+      toast.error(
+        `Error happend on the server while adding contacts: (${err.message})`
+      );
       return rejectWithValue(err.code);
     }
   }
@@ -36,7 +38,9 @@ export const deleteContact = createAsyncThunk(
       const { data } = await axios.delete(`/contacts/${id}`);
       return data;
     } catch (err) {
-      toast.error(`Error on the server happend: (${err.message})`);
+      toast.error(
+        `Error happend on the server while deleting contacts: (${err.message})`
+      );
       return rejectWithValue(err.code);
     }
   }

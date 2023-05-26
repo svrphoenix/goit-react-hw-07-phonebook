@@ -10,14 +10,11 @@ export const ContactList = () => {
   return (
     <List>
       {visibleContacts &&
-        visibleContacts.map(item => (
-          <Contact key={item.id}>
-            <p>{item.name}</p>
-            <p>{item.number}</p>
-            <Button
-              type="button"
-              onClick={() => dispatch(deleteContact(item.id))}
-            >
+        visibleContacts.map(({ id, name, number }) => (
+          <Contact key={id}>
+            <p>{name}</p>
+            <p>{number}</p>
+            <Button type="button" onClick={() => dispatch(deleteContact(id))}>
               Delete
             </Button>
           </Contact>
