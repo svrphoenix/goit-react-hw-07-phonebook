@@ -1,8 +1,7 @@
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-hot-toast';
-import { addContact } from 'redux/contactsSlice';
+// import { addContact } from 'redux/contactsSlice';
 import { FormTitle } from './FormAddContact.styled';
 import {
   StyledForm,
@@ -11,20 +10,13 @@ import {
   ErrMessage,
   Button,
 } from './FormAddContact.styled';
-import { getContacts } from 'redux/selectors';
-
-const numberPattern =
-  /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
-const ContactSchema = Yup.object().shape({
-  name: Yup.string().required('Required field!'),
-  number: Yup.string()
-    .matches(numberPattern, 'Phone number is not valid')
-    .required('Required field!'),
-});
+import { useContacts } from 'redux/hooks';
+import { ContactSchema } from './validation';
+import { addContact } from 'redux/operations';
 
 export const FormAddContact = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useContacts();
 
   const handleSubmit = (values, actions) => {
     if (
@@ -63,13 +55,7 @@ export const FormAddContact = () => {
           <div>
             <label>
               Name
-              <Input
-                type="text"
-                name="name"
-                // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                // title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                required
-              />
+              <Input type="text" name="name" required />
               <ErrMessage name="name" component="p" />
             </label>
           </div>
